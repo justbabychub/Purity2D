@@ -10,5 +10,5 @@ Purity::SceneManager::SceneManager()
 
 const Purity::Scene* Purity::SceneManager::getCurrentScene() const
 {
-    return mCurrentScene;
+    return mScene.get();
 }

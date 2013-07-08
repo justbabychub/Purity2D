@@ -18,7 +18,7 @@ namespace Purity
 
     private:
         std::unique_ptr<Scene> mScene;
-        Scene* mCurrentScene;
+      //  Scene* mCurrentScene;
     };
 }
 
