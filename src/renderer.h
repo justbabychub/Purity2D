@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 namespace Purity
@@ -14,6 +15,8 @@ namespace Purity
 
     private:
         sf::RenderWindow* mWindow;
+        int calculateFPS();
+        int mFrameCounter;
     };
 }
 
