@@ -54,53 +54,25 @@ void Purity::Object::update()
 void Purity::Object::createBody(b2World* world)
 {
     mHitboxBody = world->CreateBody(&mHitboxBodyDef);
-        b2PolygonShape hitboxBox;
+    mHitboxBody->SetUserData( this );
 
-        hitboxBox.SetAsBox(DEFAULT_HITBOX_WIDTH_METERS/2, DEFAULT_HITBOX_HEIGHT_METERS/2);
-        
-        b2FixtureDef hitboxFixtureDef;
-        hitboxFixtureDef.shape = &hitboxBox;
-        
-        hitboxFixtureDef.density = 0.0f;
-        
-        mHitboxBody->CreateFixture(&hitboxFixtureDef);
+    b2PolygonShape hitboxBox;
 
-        // sensor text
-        b2FixtureDef ledgeSensorBottomDef, ledgeSensorTopDef;
-        b2PolygonShape ledgeSensorBottomShape, ledgeSensorTopShape;
-        b2Vec2 vertices[4];
-        int verticeCount = 4;
+    hitboxBox.SetAsBox(DEFAULT_HITBOX_WIDTH_METERS/2, DEFAULT_HITBOX_HEIGHT_METERS/2);
 
+    b2FixtureDef hitboxFixtureDef;
+    hitboxFixtureDef.shape = &hitboxBox;
 
+    hitboxFixtureDef.density = 0.0f;
+    mHitboxBody->CreateFixture(&hitboxFixtureDef);
 
-        vertices[0].Set(-DEFAULT_HITBOX_WIDTH_METERS*1.25,   DEFAULT_HITBOX_HEIGHT_METERS/-2);
-        vertices[1].Set(DEFAULT_HITBOX_WIDTH_METERS*1.25,  DEFAULT_HITBOX_HEIGHT_METERS/-2);
-        vertices[2].Set(DEFAULT_HITBOX_WIDTH_METERS*1.25, 0);
-        vertices[3].Set(-DEFAULT_HITBOX_WIDTH_METERS*1.25,  0);
+    b2Vec2 vertices[4];
+    int verticeCount = 4;
 
-
-        ledgeSensorBottomShape.Set(vertices, verticeCount);
-        
-        ledgeSensorBottomDef.isSensor = true;
-        ledgeSensorBottomDef.userData = new std::string("LedgeSensorBottom");
-        ledgeSensorBottomDef.shape = &ledgeSensorBottomShape;
-        
-        vertices[0].Set(-DEFAULT_HITBOX_WIDTH_METERS*1.25,   -DEFAULT_HITBOX_HEIGHT_METERS);
-        vertices[1].Set(DEFAULT_HITBOX_WIDTH_METERS*1.25,  -DEFAULT_HITBOX_HEIGHT_METERS);
-        vertices[2].Set(DEFAULT_HITBOX_WIDTH_METERS*1.25, 0);
-        vertices[3].Set(-DEFAULT_HITBOX_WIDTH_METERS*1.25,  0);
-        
-        ledgeSensorTopShape.Set(vertices, verticeCount);
-
-        ledgeSensorTopDef.isSensor = true;
-        ledgeSensorTopDef.userData = new std::string("LedgeSensorTop");
-        ledgeSensorTopDef.shape = &ledgeSensorTopShape;
-
-        mHitboxBody->CreateFixture(&ledgeSensorBottomDef);
-        mHitboxBody->CreateFixture(&ledgeSensorTopDef);
-
-        mHitboxBody->SetUserData( this );
-
+    vertices[0].Set(-DEFAULT_HITBOX_WIDTH_METERS*1.25,   DEFAULT_HITBOX_HEIGHT_METERS/-2);
+    vertices[1].Set(DEFAULT_HITBOX_WIDTH_METERS*1.25,  DEFAULT_HITBOX_HEIGHT_METERS/-2);
+    vertices[2].Set(DEFAULT_HITBOX_WIDTH_METERS*1.25, 0);
+    vertices[3].Set(-DEFAULT_HITBOX_WIDTH_METERS*1.25,  0);
 }
 
 void Purity::Object::initializeHitboxShape()
